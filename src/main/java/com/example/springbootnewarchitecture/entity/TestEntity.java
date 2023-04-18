@@ -1,5 +1,6 @@
 package com.example.springbootnewarchitecture.entity;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,23 +11,26 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="users")
 @Entity
-@Table(name = "users")
 public class TestEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
-    private  Integer userId;
 
-    // no need for @Column if the attribute's name same as the attribute at the database
-    @Column(name="username")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Integer id;
+
+    @Column(name = "username")
     private String username;
-    @Column(name="password")
+
+    @Column(name = "password")
     private String password;
-    @Column(name="full_name")
+
+    @Column(name = "full_name")
     private String fullName;
-    @Column(name="created_date")
-    private String createdDate;
+
+    @Column(name = "created_date")
+    private String created_date;
 
 
 }
