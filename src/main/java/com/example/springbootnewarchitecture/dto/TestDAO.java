@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -33,10 +34,10 @@ public class TestDAO {
     }
 
     public Object deleteUserById(Integer id){
-        Optional<TestEntity> temoUser = testRepo.findById(id);
-        if(temoUser.isPresent()) {
+        Optional<TestEntity> tempUser = testRepo.findById(id);
+        if(tempUser.isPresent()) {
             testRepo.deleteById(id);
-            return temoUser;
+            return tempUser;
         }
         else {
             HashMap<String,Object> result =new HashMap();
@@ -47,6 +48,34 @@ public class TestDAO {
 
     public TestEntity saveUser(TestEntity user){
         return testRepo.save(user);
+    }
+
+    public TestEntity updateUser(TestEntity user){
+        Optional<TestEntity> tempUser = this.getUserById(user.getId());
+        if(tempUser.isPresent())
+            return testRepo.save(user);
+        else return null;
+    }
+
+    // Custom Queries
+    public List<TestEntity> getAllUsers(){
+        return this.testRepo.getAllUsers();
+    }
+
+    public TestEntity customGetUserById(Integer id){
+        return testRepo.getUserById(id);
+    }
+
+    public void resetPassword(String password,Integer id){
+        testRepo.resetPassword(password, id);
+    }
+
+    public void customDeleteUserById(Integer id){
+        testRepo.deleteById(id);
+    }
+
+    public List<TestEntity> getAllUsersNativeQuery(){
+        return testRepo.getAllUsersNativeQuery();
     }
 
 }
